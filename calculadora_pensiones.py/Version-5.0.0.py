@@ -1,13 +1,13 @@
 class GestionPensiones:
-    # INFORMACION EN ESTRUCTURA DE DATOS
+# INFORMACION EN ESTRUCTURA DE DATOS
     COMISIONES = {"ONP":0.13, "Habitat":0.0147, "Integra":0.0155, "Prima":0.016, "Profuturo":0.0169}
     INDICES = {indice: sistema for indice, sistema in enumerate(COMISIONES)}
     CUENTAS_AFP = {0:"Flujo", 1:"Sobre Saldo"}
-    # INFORMACION EN VARIABLES
+# INFORMACION EN VARIABLES
     APORTE_OBLIGATORIO, PRIMA_SEGURO = 0.1, 0.0137
     UNIVERSAL = APORTE_OBLIGATORIO + PRIMA_SEGURO
     SUELDO_MINIMO = 565
-    # FUNCION GENERICA DE VALIDACION DE ENTRADA DE DATOS
+# FUNCION GENERICA DE VALIDACION DE ENTRADA DE DATOS
     def validacion(self, mensaje, mensaje_error, tipo_variable=None, diccionario=None, constante=None):
         while True:
             try:
@@ -18,26 +18,26 @@ class GestionPensiones:
                     return variable
                 print(mensaje_error)    
             except ValueError:
-                print("Error: Ingreso un valor inválido")
-    # FUNCION DE INGRESO DE SUELDO EN BRUTO            
+                print("Error: Ingreso un valor invalido")
+# FUNCION DE INGRESO DE SUELDO EN BRUTO            
     def ingreso_sueldo_bruto(self):
         return self.validacion("Ingrese el sueldo en bruto: ", "Error: Ingreso un sueldo por debajo del minimo en planilla", float, None, self.SUELDO_MINIMO)
-    # FUNCION DE ELECCION DE SISTEMA DE PENSIONES    
+# FUNCION DE ELECCION DE SISTEMA DE PENSIONES    
     def eleccion_sistema(self):
         return self.validacion("Ingrese el digito de su sistema de pension: ", "Error: Ingreso un digito no registrado", int, self.INDICES, None)
-    # FUNCION DE CALCULO DEL SISTEMA ONP     
+# FUNCION DE CALCULO DEL SISTEMA ONP     
     def sistema_onp(self, sueldo_bruto):
         return sueldo_bruto - (sueldo_bruto * self.COMISIONES["ONP"])
-    # FUNCION DE ELECCION DEL SISTEMA AFP    
+# FUNCION DE ELECCION DEL SISTEMA AFP    
     def eleccion_afp(self):
         return self.validacion("Ingrese el digito de la cuenta: ", "Error: Ingreso un digito no registrado", int, self.CUENTAS_AFP, None)
-    # FUNCION DE CALCULO DEL SISTEMA AFP SEGUN CUENTA FLUJO O SOBRE SUELDO     
+# FUNCION DE CALCULO DEL SISTEMA AFP SEGUN CUENTA FLUJO O SOBRE SUELDO     
     def sistema_afp(self, cuenta, sueldo_bruto, constante, comision):
         if cuenta == 0:
             return sueldo_bruto - (sueldo_bruto * (constante + comision))
         else:
             return sueldo_bruto - (sueldo_bruto * constante)
-    # EJECUCION DEL CODIGO            
+# EJECUCION DEL CODIGO            
 if __name__=="__main__":
     Empleado = GestionPensiones()
     sueldo_bruto = Empleado.ingreso_sueldo_bruto()
