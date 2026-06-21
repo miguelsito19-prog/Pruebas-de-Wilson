@@ -4,9 +4,8 @@ class GestionPensiones:
     INDICES = {indice: sistema for indice, sistema in enumerate(COMISIONES)}
     CUENTAS_AFP = {0:"Flujo", 1:"Sobre Saldo"}
 # INFORMACION EN VARIABLES
-    APORTE_OBLIGATORIO, PRIMA_SEGURO = 0.1, 0.0137
+    APORTE_OBLIGATORIO, PRIMA_SEGURO, SUELDO_MINIMO = 0.1, 0.0137, 565
     UNIVERSAL = APORTE_OBLIGATORIO + PRIMA_SEGURO
-    SUELDO_MINIMO = 565
 # FUNCION GENERICA DE VALIDACION DE ENTRADA DE DATOS
     def validacion(self, mensaje, mensaje_error, tipo_variable=None, diccionario=None, constante=None):
         while True:
