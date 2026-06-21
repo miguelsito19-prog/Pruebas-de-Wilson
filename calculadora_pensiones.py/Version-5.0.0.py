@@ -3,7 +3,6 @@ class GestionPensiones:
     COMISIONES = {"ONP":0.13, "Habitat":0.0147, "Integra":0.0155, "Prima":0.016, "Profuturo":0.0169}
     INDICES = {indice: sistema for indice, sistema in enumerate(COMISIONES)}
     CUENTAS_AFP = {0:"Flujo", 1:"Sobre Saldo"}
-    LISTA_COMISIONES = list(COMISIONES.values())
     # INFORMACION EN VARIABLES
     APORTE_OBLIGATORIO, PRIMA_SEGURO = 0.1, 0.0137
     UNIVERSAL = APORTE_OBLIGATORIO + PRIMA_SEGURO
@@ -51,5 +50,5 @@ if __name__=="__main__":
         for indice, nombre in Empleado.CUENTAS_AFP.items():
             print(f"[{indice}] -> {nombre}")
         cuentas = Empleado.eleccion_afp()
-        sueldo_neto = Empleado.sistema_afp(cuentas, sueldo_bruto, Empleado.UNIVERSAL, Empleado.LISTA_COMISIONES[sistema])
+        sueldo_neto = Empleado.sistema_afp(cuentas, sueldo_bruto, Empleado.UNIVERSAL, list(Empleado.COMISIONES.values())[sistema])
     print(f"El sueldo estimado es de S/{sueldo_neto:,.2f}")
