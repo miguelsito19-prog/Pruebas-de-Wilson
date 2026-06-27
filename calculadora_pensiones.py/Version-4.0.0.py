@@ -18,13 +18,13 @@ class GestionPensiones:
         self.cuenta = None
         self.sueldo_neto = 0 
 # FUNCION GENERICA DE VALIDACION DE ENTRADA DE DATOS
-    def validacion(self, mensaje, mensaje_error, tipo_variable=None, condicion=None, constante=None):
+    def validacion(self, mensaje, mensaje_error, tipo_variable=None, condicion=None, valor_minimo=None):
         while True:
             try:
                 variable = tipo_variable(input(mensaje))
-                if condicion is None and variable >= constante:
+                if condicion is not None and variable in condicion:
                     return variable
-                elif constante is None and variable in condicion:
+                elif valor_minimo is not None and variable >= valor_minimo:
                     return variable
                 print(mensaje_error)    
             except ValueError:
@@ -37,16 +37,14 @@ class GestionPensiones:
         self.sistema = self.validacion("Ingrese el digito de su sistema de pension: ", "Error: Ingreso un digito no registrado", int, range(len(self.COMISIONES)), None)
 # FUNCION DE CALCULO DEL SISTEMA ONP     
     def sistema_onp(self):
-        self.sueldo_neto = self.sueldo_bruto - (self.sueldo_bruto * self.COMISIONES["ONP"])
+        self.sueldo_neto = self.sueldo_bruto - (self.sueldo_bruto * self.COMISIONES[0]["porcentaje"])
 # FUNCION DE ELECCION DEL SISTEMA AFP    
     def eleccion_afp(self):
         self.cuenta = self.validacion("Ingrese el digito de la cuenta: ", "Error: Ingreso un digito no registrado", int, self.CUENTAS_AFP, None)
 # FUNCION DE CALCULO DEL SISTEMA AFP SEGUN CUENTA FLUJO O SOBRE SUELDO     
     def sistema_afp(self):
-        datos_afp = self.COMISIONES[self.sistema]
-        comision_porcentaje = datos_afp["porcentaje"]
         if self.cuenta == 0:
-            self.sueldo_neto = self.sueldo_bruto - (self.sueldo_bruto * (self.UNIVERSAL + comision_porcentaje))
+            self.sueldo_neto = self.sueldo_bruto - (self.sueldo_bruto * (self.UNIVERSAL + self.COMISIONES[self.sistema]["porcentaje"]))
         else:
             self.sueldo_neto = self.sueldo_bruto - (self.sueldo_bruto * self.UNIVERSAL)
 # EJECUCION DEL CODIGO            
